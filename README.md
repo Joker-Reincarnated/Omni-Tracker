@@ -1,7 +1,7 @@
 ![OmniTracker Console Header](https://i.ibb.co/3yKLWw0K/1008094768.jpg)
 
 
-# 🛰️ How to Setup Your Phone Tracker (Easy Guide)
+# 🛰️ How to Setup Your Phone Tracker
 
 This tool helps you find your phone if it gets lost or stolen. It sends the phone's live location straight to your private Telegram app. 
 
@@ -28,7 +28,7 @@ We need to create a private system that sends the location maps directly to you.
 4. Give it a username that ends in "bot" (example: `joker_finder_bot`).
 5. **BotFather** will send you a long code called a **Token**. Copy this code and keep it safe!
 
-![OmniTracker Console Header]([https://i.ibb.co/1tLkLVf2/1008095038.jpg])
+![OmniTracker Console Header](https://i.ibb.co/1tLkLVf2/1008095038.jpg)
 
 
 ### 🔹 B. Get Your Personal User ID (UID)
@@ -68,7 +68,7 @@ On the Vercel setup page, click on **Environment Variables** and add these 3 thi
 | **`CHAT_ID`** | Paste the ID number you got from `@userinfobot`. |
 | **`AUTH_TOKEN`** | Type any secret password you want! (Example: `mysecret99`). **Remember this!** |
 
-*(Place image for Vercel environment variables setup here)*
+
 
 Now, click the big **Deploy** button. Wait 1 minute, and Vercel will give you a live website link (example: `https://your-name.vercel.app`).
 
