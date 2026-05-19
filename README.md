@@ -28,14 +28,16 @@ We need to create a private system that sends the location maps directly to you.
 4. Give it a username that ends in "bot" (example: `joker_finder_bot`).
 5. **BotFather** will send you a long code called a **Token**. Copy this code and keep it safe!
 
-*( https://i.ibb.co/1tLkLVf2/1008095038.jpg )*
+![OmniTracker Console Header]([https://i.ibb.co/1tLkLVf2/1008095038.jpg])
+
 
 ### 🔹 B. Get Your Personal User ID (UID)
 1. In Telegram, search for **`@userinfobot`**.
 2. Type and send: `/start`
 3. It will reply with a number called your **Id**. Copy this number!
 
-https://i.ibb.co/Q3m1d0s0/1008095062.jpg
+![OmniTracker Console Header](https://i.ibb.co/Q3m1d0s0/1008095062.jpg
+)
 
 ---
 
