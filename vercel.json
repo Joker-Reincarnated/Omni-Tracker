@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "src": "/view",
+      "dest": "/api/track.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/track.js"
+    }
+  ]
+}
