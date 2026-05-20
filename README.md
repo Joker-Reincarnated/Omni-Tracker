@@ -9,7 +9,7 @@ Follow this simple, step-by-step guide to set it up. No coding skills needed!
 
 ---
 
-## 📱 Step 1: Download the App on Your Phone
+## 📱 Step 1: Download this App on Your Phone
 
 First, install the tracker app on the Android phone you want to plant the tracker.
 
