@@ -124,17 +124,36 @@ loadState().catch(() => {});
 
 export default async function handler(req, res) {
   try {
-    // ensure req.body exists; fallback to parse raw JSON body if necessary
-    if (!req.body && (req.headers['content-type'] || '').includes('application/json')) {
+    // ensure req.body exists; fallback to parse raw body for JSON or urlencoded forms
+    if (!req.body) {
+      const ct = (req.headers['content-type'] || req.headers['Content-Type'] || '').toLowerCase();
       try {
-        req.body = await new Promise((resolve) => {
+        const rawBody = await new Promise((resolve) => {
           let data = '';
           req.on('data', chunk => { data += chunk; });
-          req.on('end', () => {
-            try { resolve(JSON.parse(data || '{}')); } catch (e) { resolve(null); }
-          });
-          req.on('error', () => resolve(null));
+          req.on('end', () => resolve(data));
+          req.on('error', () => resolve(''));
         });
+        if (!rawBody || rawBody.length === 0) {
+          req.body = null;
+        } else if (ct.includes('application/json') || rawBody.trim().startsWith('{')) {
+          try { req.body = JSON.parse(rawBody); } catch (e) { req.body = null; }
+        } else if (ct.includes('application/x-www-form-urlencoded')) {
+          const params = new URLSearchParams(rawBody);
+          const obj = {};
+          for (const [k, v] of params.entries()) obj[k] = v;
+          req.body = obj;
+        } else {
+          // attempt to parse as urlencoded fallback
+          try {
+            const params = new URLSearchParams(rawBody);
+            const obj = {};
+            for (const [k, v] of params.entries()) obj[k] = v;
+            req.body = obj;
+          } catch (e) {
+            req.body = null;
+          }
+        }
       } catch (e) {
         req.body = null;
       }
@@ -373,6 +392,9 @@ export default async function handler(req, res) {
 
     
     if (req.method === 'POST' && req.body && req.body.deviceID) {
+      // If AUTH_TOKEN not provided in environment, warn (helps debugging)
+      if (!AUTH_TOKEN) console.warn('AUTH_TOKEN not set in environment; authentication will fail unless provided explicitly.');
+
       // Accept token either via Authorization header (Bearer) or as a body field
       const authHeader = (req.headers && (req.headers.authorization || req.headers.Authorization)) || '';
       let providedToken = '';
@@ -381,7 +403,7 @@ export default async function handler(req, res) {
       }
       // fallback: allow token in request body under common keys (authToken, token, auth)
       if ((!providedToken || providedToken === '') && req.body) {
-        const bodyToken = req.body.authToken || req.body.token || req.body.auth;
+        const bodyToken = req.body.authToken || req.body.token || req.body.auth || req.body.auth_token || req.body['x-auth-token'] || req.body.authorization;
         if (typeof bodyToken !== 'undefined' && bodyToken !== null) providedToken = String(bodyToken);
       }
 
