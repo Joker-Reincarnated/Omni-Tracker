@@ -373,8 +373,18 @@ export default async function handler(req, res) {
 
     
     if (req.method === 'POST' && req.body && req.body.deviceID) {
+      // Accept token either via Authorization header (Bearer) or as a body field
       const authHeader = (req.headers && (req.headers.authorization || req.headers.Authorization)) || '';
-      const providedToken = typeof authHeader === 'string' && authHeader.toLowerCase().startsWith('bearer ') ? authHeader.slice(7) : authHeader;
+      let providedToken = '';
+      if (typeof authHeader === 'string' && authHeader.length > 0) {
+        providedToken = authHeader.toLowerCase().startsWith('bearer ') ? authHeader.slice(7) : authHeader;
+      }
+      // fallback: allow token in request body under common keys (authToken, token, auth)
+      if ((!providedToken || providedToken === '') && req.body) {
+        const bodyToken = req.body.authToken || req.body.token || req.body.auth;
+        if (typeof bodyToken !== 'undefined' && bodyToken !== null) providedToken = String(bodyToken);
+      }
+
       if (providedToken !== AUTH_TOKEN) {
         trackerStatus.lastError = 'Invalid auth token';
         trackerStatus.lastErrorTime = Date.now();
