@@ -13,7 +13,7 @@ Follow this simple, step-by-step guide to set it up. No coding skills needed!
 
 First, install the tracker app on the Android phone you want to plant the tracker.
 
-> 📦 **[Click Here to Download the App](https://www.mediafire.com/file/5nryudy7prmwuvh/Omni+Tracker_1.0.apk/file)**
+> 📦 **[Click Here to Download the App](https://www.mediafire.com/file/vorwdmt0d9dppop/Omnitacker.apk/file)**
 
 ---
 
